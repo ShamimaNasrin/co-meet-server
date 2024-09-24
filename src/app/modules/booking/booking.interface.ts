@@ -5,7 +5,7 @@ export interface TBooking {
   room: Types.ObjectId;
   slots: Types.ObjectId[];
   user: Types.ObjectId;
-  date: Date;
+  date: String;
   totalAmount: number;
   isConfirmed?: "confirmed" | "unconfirmed" | "canceled";
   isDeleted: boolean;
