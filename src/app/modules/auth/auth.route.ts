@@ -1,20 +1,15 @@
 import express from "express";
+import validateRequest from "../../middlewares/validateRequest";
+import { AuthControllers } from "./auth.controller";
+import { AuthValidation } from "./auth.validation";
 
 const router = express.Router();
 
-// // for creating product
-// router.post("/", ProductControllers.createProduct);
-
-// //get all product
-// router.get("/", ProductControllers.getAllProducts);
-
-// // get a single product
-// router.get("/:productId", ProductControllers.getSingleProduct);
-
-// //delete a single product
-// router.delete("/:productId", ProductControllers.deleteSingleProduct);
-
-// // update a single product
-// router.put("/:productId", ProductControllers.updateSingleProduct);
+// login route
+router.post(
+  "/login",
+  validateRequest(AuthValidation.loginValidationSchema),
+  AuthControllers.loginUser
+);
 
 export const AuthRoutes = router;

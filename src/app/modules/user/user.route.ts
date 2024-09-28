@@ -1,20 +1,15 @@
 import express from "express";
+import { UserControllers } from "./user.controller";
+import validateRequest from "../../middlewares/validateRequest";
+import { userValidationSchema } from "./user.validation";
 
 const router = express.Router();
 
-// // for creating product
-// router.post("/", ProductControllers.createProduct);
-
-// //get all product
-// router.get("/", ProductControllers.getAllProducts);
-
-// // get a single product
-// router.get("/:productId", ProductControllers.getSingleProduct);
-
-// //delete a single product
-// router.delete("/:productId", ProductControllers.deleteSingleProduct);
-
-// // update a single product
-// router.put("/:productId", ProductControllers.updateSingleProduct);
+// create user
+router.post(
+  "/signup",
+  validateRequest(userValidationSchema),
+  UserControllers.signUp
+);
 
 export const UserRoutes = router;

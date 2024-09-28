@@ -33,7 +33,7 @@ const forgetPasswordValidationSchema = z.object({
   }),
 });
 
-export {
+export const AuthValidation = {
   loginValidationSchema,
   changePasswordValidationSchema,
   refreshTokenValidationSchema,

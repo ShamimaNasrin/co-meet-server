@@ -13,10 +13,10 @@ const moduleRoutes = [
     path: "/auth",
     route: AuthRoutes,
   },
-  // {
-  //   path: "/users",
-  //   route: UserRoutes,
-  // },
+  {
+    path: "/users",
+    route: UserRoutes,
+  },
   // {
   //   path: "/my-bookings",
   //   route: UserRoutes,
