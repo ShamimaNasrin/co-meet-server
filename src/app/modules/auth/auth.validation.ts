@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-// Define the Auth schema
+// Define the Login schema
 const loginValidationSchema = z.object({
   body: z.object({
     email: z.string({ required_error: "Email is required" }),
