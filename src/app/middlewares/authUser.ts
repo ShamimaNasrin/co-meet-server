@@ -6,7 +6,7 @@ import AppError from "../errors/AppError";
 
 // auth user middleware
 export const authUser = (req: Request, res: Response, next: NextFunction) => {
-  const token = req.headers.authorization;
+  const token = req.header("authorization")?.replace("Bearer ", "");
 
   // checking if the token is missing
   if (!token) {
