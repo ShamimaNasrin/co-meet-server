@@ -14,6 +14,9 @@ const createARoomValidationSchema = z.object({
       .number()
       .positive("Price per slot must be a positive number"),
     amenities: z.array(z.string().min(1, "Amenity cannot be empty")),
+    images: z
+      .array(z.string().url("Image must be a valid URL"))
+      .nonempty("Image cannot be empty"),
     isDeleted: z.boolean().default(false),
   }),
 });
@@ -41,6 +44,10 @@ const updateARoomValidationSchema = z.object({
       .positive("Price per slot must be a positive number")
       .optional(),
     amenities: z.array(z.string().min(1, "Amenity cannot be empty")).optional(),
+    images: z
+      .array(z.string().url("Image must be a valid URL"))
+      .nonempty("Image cannot be empty")
+      .optional(),
     isDeleted: z.boolean().default(false).optional(),
   }),
 });
