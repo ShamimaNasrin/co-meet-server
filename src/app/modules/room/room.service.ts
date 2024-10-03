@@ -12,23 +12,6 @@ const createARoom = async (payload: TRoom) => {
 };
 
 // get all room inclusding sorting, searching, filtering
-// const getAllRoom = async (queryParams: Record<string, unknown>) => {
-//   const roomQueryBuilder = new QueryBuilder(
-//     RoomModel.find({ isDeleted: false }),
-//     queryParams
-//   );
-
-//   roomQueryBuilder.search(["name"]).filter().sort().paginate().fields();
-
-//   const result = await roomQueryBuilder.modelQuery;
-//   const paginationMeta = await roomQueryBuilder.countTotal();
-
-//   return {
-//     result,
-//     paginationMeta,
-//   };
-// };
-
 const getAllRoom = async (queryParams: any) => {
   const { search, sortBy, minPrice, maxPrice, minCapacity, maxCapacity } =
     queryParams;

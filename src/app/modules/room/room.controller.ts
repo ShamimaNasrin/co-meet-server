@@ -41,26 +41,6 @@ const getASingleRoom = catchAsync(async (req, res) => {
 });
 
 // get All rooms
-// const getAllRoom = catchAsync(async (req, res) => {
-//   const result = await RoomServices.getAllRoom(req.query);
-
-//   if (result.result.length === 0) {
-//     return sendResponse(res, {
-//       statusCode: httpStatus.NOT_FOUND,
-//       success: false,
-//       message: "No Data Found",
-//       data: [],
-//     });
-//   } else {
-//     sendResponse(res, {
-//       statusCode: httpStatus.OK,
-//       success: true,
-//       message: "Room retrieved successfully",
-//       data: result,
-//     });
-//   }
-// });
-
 const getAllRoom = catchAsync(async (req, res) => {
   const result = await RoomServices.getAllRoom(req.query);
 
