@@ -8,7 +8,7 @@ import { Types } from "mongoose";
 // create A room
 const createARoom = catchAsync(async (req, res) => {
   const result = await RoomServices.createARoom(req.body);
-  console.log(result);
+  // console.log(result);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -65,7 +65,6 @@ const getAllRoom = catchAsync(async (req, res) => {
 const deleteARoom = catchAsync(async (req, res) => {
   const roomId = req.params.roomId;
   if (!roomId) {
-    // throw new Error("Invalid Room");
     throw new AppError(httpStatus.NOT_FOUND, "Invalid Room");
   }
 
