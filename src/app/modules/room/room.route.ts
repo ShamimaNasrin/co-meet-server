@@ -30,8 +30,8 @@ router.delete("/:roomId", authUser, authAdmin, RoomControllers.deleteARoom);
 // update a single product
 router.patch(
   "/:roomId",
-  //   authUser,
-  //   authAdmin,
+  authUser,
+  authAdmin,
   validateRequest(updateARoomValidationSchema),
   RoomControllers.updateARoom
 );

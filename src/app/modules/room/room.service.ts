@@ -2,7 +2,7 @@
 import { Types } from "mongoose";
 import { TRoom } from "./room.interface";
 import { RoomModel } from "./room.model";
-import QueryBuilder from "./room.utils";
+// import QueryBuilder from "./room.utils";
 
 // create room function
 const createARoom = async (payload: TRoom) => {
@@ -12,21 +12,70 @@ const createARoom = async (payload: TRoom) => {
 };
 
 // get all room inclusding sorting, searching, filtering
-const getAllRoom = async (queryParams: Record<string, unknown>) => {
-  const roomQueryBuilder = new QueryBuilder(
-    RoomModel.find({ isDeleted: false }),
-    queryParams
-  );
+// const getAllRoom = async (queryParams: Record<string, unknown>) => {
+//   const roomQueryBuilder = new QueryBuilder(
+//     RoomModel.find({ isDeleted: false }),
+//     queryParams
+//   );
 
-  roomQueryBuilder.search(["name"]).filter().sort().paginate().fields();
+//   roomQueryBuilder.search(["name"]).filter().sort().paginate().fields();
 
-  const result = await roomQueryBuilder.modelQuery;
-  const paginationMeta = await roomQueryBuilder.countTotal();
+//   const result = await roomQueryBuilder.modelQuery;
+//   const paginationMeta = await roomQueryBuilder.countTotal();
 
-  return {
-    result,
-    paginationMeta,
-  };
+//   return {
+//     result,
+//     paginationMeta,
+//   };
+// };
+
+const getAllRoom = async (queryParams: any) => {
+  const { search, sortBy, minPrice, maxPrice, minCapacity, maxCapacity } =
+    queryParams;
+
+  const filter: any = { isDeleted: false };
+
+  // by name
+  if (search) {
+    filter.name = { $regex: search, $options: "i" };
+  }
+
+  // by price range
+  if (maxPrice) {
+    filter.pricePerSlot = {
+      ...filter.pricePerSlot,
+      $lte: parseFloat(maxPrice),
+    };
+  }
+
+  if (minPrice) {
+    filter.pricePerSlot = {
+      ...filter.pricePerSlot,
+      $gte: parseFloat(minPrice),
+    };
+  }
+
+  // by capacity range
+  if (maxCapacity) {
+    filter.capacity = { ...filter.capacity, $lte: parseFloat(maxCapacity) };
+  }
+
+  if (minCapacity) {
+    filter.capacity = { ...filter.capacity, $gte: parseFloat(minCapacity) };
+  }
+
+  // sorting by price
+  let sort: any = {};
+  if (sortBy) {
+    if (sortBy === "asc") {
+      sort.pricePerSlot = 1;
+    } else if (sortBy === "desc") {
+      sort.pricePerSlot = -1;
+    }
+  }
+
+  const result = await RoomModel.find(filter).sort(sort);
+  return result;
 };
 
 // get a single room
