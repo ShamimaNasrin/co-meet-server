@@ -64,20 +64,20 @@ const createASlot = async (slotData: TSlot) => {
 
 // get all slots
 const getAllSlots = async (): Promise<TSlot[]> => {
-  // Retrieve all slots from the database
-  const allSlots = await SlotModel.find();
-
-  // Filter out slots where the associated room is deleted
-  const validSlots = await Promise.all(
-    allSlots.map(async (slot) => {
-      const room = await RoomModel.findById(slot.room).select("isDeleted");
-      // Only return the slot if its room is not deleted
-      return room && !room.isDeleted ? slot : null;
+  const slots = await SlotModel.find()
+    .populate({
+      path: "room",
+      select:
+        "name roomNo floorNo capacity pricePerSlot amenities images isDeleted",
     })
+    .lean();
+
+  // Filter out slots where room is deleted
+  const filteredSlots = slots.filter(
+    (slot) => slot.room && !(slot.room as any).isDeleted
   );
 
-  // Remove any null values from the array
-  return validSlots.filter((slot) => slot !== null);
+  return filteredSlots;
 };
 
 // get All Available Slots

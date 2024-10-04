@@ -12,8 +12,8 @@ const router = express.Router();
 // for creating slot
 router.post(
   "/",
-  //   authUser,
-  //   authAdmin,
+  authUser,
+  authAdmin,
   validateRequest(createSlotValidationSchema),
   SlotControllers.createASlot
 );
@@ -30,8 +30,8 @@ router.delete("/:slotId", authUser, authAdmin, SlotControllers.deleteASlot);
 // update a single product
 router.patch(
   "/:slotId",
-  //   authUser,
-  //   authAdmin,
+  authUser,
+  authAdmin,
   validateRequest(updateSlotValidationSchema),
   SlotControllers.updateASlot
 );

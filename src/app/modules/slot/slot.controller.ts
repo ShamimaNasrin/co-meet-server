@@ -6,7 +6,7 @@ import sendResponse from "../../utils/sendResponse";
 import { SlotServices } from "./slot.service";
 
 // create slot
-const createASlot = catchAsync(async (req: Request, res: Response) => {
+const createASlot = catchAsync(async (req, res) => {
   const result = await SlotServices.createASlot(req.body);
   // console.log(result);
 
@@ -19,7 +19,7 @@ const createASlot = catchAsync(async (req: Request, res: Response) => {
 });
 
 // get all the slots
-const getAllSlots = catchAsync(async (req: Request, res: Response) => {
+const getAllSlots = catchAsync(async (req, res) => {
   const result = await SlotServices.getAllSlots();
 
   if (!result) {
@@ -95,7 +95,7 @@ const deleteASlot = catchAsync(async (req, res) => {
 });
 
 // update a slot
-const updateASlot = catchAsync(async (req: Request, res: Response) => {
+const updateASlot = catchAsync(async (req, res) => {
   const slotId = req.params.slotId;
   const updatedSlot = req.body;
 
