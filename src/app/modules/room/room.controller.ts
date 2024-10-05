@@ -101,14 +101,14 @@ const updateARoom = catchAsync(async (req, res) => {
       message: "Room not found",
       data: [],
     });
+  } else {
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "Room updated successfully",
+      data: result,
+    });
   }
-
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "Room updated successfully",
-    data: result,
-  });
 });
 
 export const RoomControllers = {

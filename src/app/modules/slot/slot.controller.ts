@@ -29,14 +29,14 @@ const getAllSlots = catchAsync(async (req, res) => {
       message: "No Data Found",
       data: [],
     });
+  } else {
+    return sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "Slots retrieved successfully",
+      data: result,
+    });
   }
-
-  return sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "Slots retrieved successfully",
-    data: result,
-  });
 });
 
 // get available slots
@@ -58,14 +58,14 @@ const getAllAvailableSlot = catchAsync(async (req, res) => {
       message: "No Data Found",
       data: [],
     });
+  } else {
+    return sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "Slots retrieved successfully",
+      data: result,
+    });
   }
-
-  return sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "Slots retrieved successfully",
-    data: result,
-  });
 });
 
 // delete slot
@@ -108,14 +108,14 @@ const updateASlot = catchAsync(async (req, res) => {
       message: "No Data Found",
       data: [],
     });
+  } else {
+    return sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "Slot updated successfully",
+      data: result,
+    });
   }
-
-  return sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "Slot updated successfully",
-    data: result,
-  });
 });
 
 export const SlotControllers = {

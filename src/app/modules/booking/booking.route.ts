@@ -1,20 +1,43 @@
 import express from "express";
+import { authAdmin, authUser } from "../../middlewares/authUser";
+import validateRequest from "../../middlewares/validateRequest";
+import {
+  createBookingValidationSchema,
+  updateBookingValidationSchema,
+} from "./booking.validation";
+import { BookingControllers } from "./booking.controller";
 
 const router = express.Router();
 
-// // for creating product
-// router.post("/", ProductControllers.createProduct);
+// for creating booking
+router.post(
+  "/",
+  authUser,
+  validateRequest(createBookingValidationSchema),
+  BookingControllers.addABooking
+);
 
-// //get all product
-// router.get("/", ProductControllers.getAllProducts);
+//get all bookis
+router.get("/", authUser, authAdmin, BookingControllers.getAllBookings);
 
-// // get a single product
-// router.get("/:productId", ProductControllers.getSingleProduct);
+// get users booking(my-bookings)
+router.get("/my-bookings", authUser, BookingControllers.getMyBookings);
 
-// //delete a single product
-// router.delete("/:productId", ProductControllers.deleteSingleProduct);
+//delete a single Bookings
+router.delete(
+  "/:bookingId",
+  authUser,
+  authAdmin,
+  BookingControllers.deleteABooking
+);
 
-// // update a single product
-// router.put("/:productId", ProductControllers.updateSingleProduct);
+// Approve/Reject Bookings
+router.patch(
+  "/:bookingId",
+  authUser,
+  authAdmin,
+  validateRequest(updateBookingValidationSchema),
+  BookingControllers.updateABooking
+);
 
 export const BookingRoutes = router;

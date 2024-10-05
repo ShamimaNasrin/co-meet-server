@@ -1,8 +1,8 @@
-import { Schema, model } from "mongoose";
-import { TBooking } from "./booking.interface";
+import { Schema, model, Types } from "mongoose";
+import { TBooking, BookingModel } from "./booking.interface";
 
 // create schema for booking
-const bookingSchema = new Schema<TBooking>(
+const bookingSchema = new Schema<TBooking, BookingModel>(
   {
     room: {
       type: Schema.Types.ObjectId,
@@ -33,14 +33,28 @@ const bookingSchema = new Schema<TBooking>(
       type: String,
       enum: ["confirmed", "unconfirmed", "canceled"],
       default: "unconfirmed",
+      required: true,
     },
     isDeleted: {
       type: Boolean,
       default: false,
+      required: true,
+    },
+    isApproved: {
+      type: String,
     },
   },
   { timestamps: true }
 );
 
-// create model for booking
-export const BookingModel = model<TBooking>("Booking", bookingSchema);
+// retrieve booking details with populated fields
+bookingSchema.statics.getByIdWithDetails = function (
+  bookingId: Types.ObjectId
+) {
+  return this.findOne({ _id: bookingId })
+    .populate("room")
+    .populate("slots")
+    .populate("user");
+};
+
+export const Booking = model<TBooking, BookingModel>("Booking", bookingSchema);

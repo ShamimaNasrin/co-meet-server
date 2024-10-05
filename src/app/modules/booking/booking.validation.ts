@@ -23,11 +23,13 @@ const createBookingValidationSchema = z.object({
     }),
     totalAmount: z
       .number()
-      .min(0, { message: "Total amount must be a positive number" }),
+      .min(0, { message: "Total amount must be a positive number" })
+      .optional(),
     isConfirmed: z
       .enum(["confirmed", "unconfirmed", "canceled"])
       .default("unconfirmed"),
     isDeleted: z.boolean().default(false),
+    isApproved: z.string().optional(),
   }),
 });
 
@@ -63,6 +65,7 @@ const updateBookingValidationSchema = z.object({
       .default("unconfirmed")
       .optional(),
     isDeleted: z.boolean().default(false).optional(),
+    isApproved: z.string().optional(),
   }),
 });
 
