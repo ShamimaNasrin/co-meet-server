@@ -3,7 +3,6 @@ import sendResponse from "../../utils/sendResponse";
 import httpStatus from "http-status";
 import { RoomServices } from "./room.service";
 import AppError from "../../errors/AppError";
-import { Types } from "mongoose";
 
 // create A room
 const createARoom = catchAsync(async (req, res) => {
@@ -65,7 +64,7 @@ const getAllRoom = catchAsync(async (req, res) => {
 const deleteARoom = catchAsync(async (req, res) => {
   const roomId = req.params.roomId;
   if (!roomId) {
-    throw new AppError(httpStatus.NOT_FOUND, "Invalid Room");
+    throw new AppError(httpStatus.NOT_FOUND, "Invalid Room Id");
   }
 
   const result = await RoomServices.deleteARoom(roomId);
@@ -89,7 +88,7 @@ const deleteARoom = catchAsync(async (req, res) => {
 
 // update A room
 const updateARoom = catchAsync(async (req, res) => {
-  const roomId = new Types.ObjectId(req.params.roomId);
+  const roomId = req.params.roomId;
   const updatedRoom = req.body;
 
   const result = await RoomServices.updateARoom(roomId, updatedRoom);

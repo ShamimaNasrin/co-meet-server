@@ -71,8 +71,9 @@ const getAllAvailableSlot = catchAsync(async (req, res) => {
 // delete slot
 const deleteASlot = catchAsync(async (req, res) => {
   const slotId = req.params.slotId;
+
   if (!slotId) {
-    throw new AppError(httpStatus.NOT_FOUND, "Invalid Slot");
+    throw new AppError(httpStatus.NOT_FOUND, "Invalid Slot ID");
   }
 
   const result = await SlotServices.deleteASlot(slotId);

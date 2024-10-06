@@ -86,7 +86,7 @@ const getAllAvailableSlot = async (date?: string, roomId?: string) => {
 
   if (roomId) {
     if (!Types.ObjectId.isValid(roomId)) {
-      throw new AppError(httpStatus.BAD_REQUEST, "Invalid roomId format");
+      throw new AppError(httpStatus.BAD_REQUEST, "Invalid room Id format");
     }
 
     // Check if the room exists and is not deleted

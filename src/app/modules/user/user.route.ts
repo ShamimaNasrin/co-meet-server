@@ -6,12 +6,12 @@ import { authAdmin, authUser } from "../../middlewares/authUser";
 
 const router = express.Router();
 
-// // create user
-// router.post(
-//   "/signup",
-//   validateRequest(userValidationSchema),
-//   UserControllers.signUp
-// );
+// create user
+router.post(
+  "/signup",
+  validateRequest(userValidationSchema),
+  UserControllers.signUp
+);
 
 // get all user
 router.get("/", authUser, authAdmin, UserControllers.getAllUsers);

@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Types } from "mongoose";
 import { TRoom } from "./room.interface";
 import { RoomModel } from "./room.model";
-// import QueryBuilder from "./room.utils";
 
 // create room function
 const createARoom = async (payload: TRoom) => {
   const result = await RoomModel.create(payload);
-  console.log("result:", result);
+  // console.log("result:", result);
   return result;
 };
 
@@ -79,7 +77,7 @@ const deleteARoom = async (_id: string) => {
 
 // update a single room
 const updateARoom = async (
-  _id: Types.ObjectId,
+  _id: string,
   data: Partial<TRoom>
 ): Promise<TRoom | null> => {
   const result = await RoomModel.findByIdAndUpdate(_id, data, {

@@ -31,10 +31,6 @@ const addABooking = async (bookings: TBooking) => {
       isBooked: false,
     }).session(session);
 
-    if (availableSlots.length !== bookings.slots.length) {
-      throw new AppError(httpStatus.NOT_FOUND, "Some slots are unavailable");
-    }
-
     // Mark the selected slots as booked
     const slotIdsToUpdate = availableSlots.map((slot) => slot._id);
     await SlotModel.updateMany(

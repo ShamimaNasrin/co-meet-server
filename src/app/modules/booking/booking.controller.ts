@@ -5,6 +5,7 @@ import httpStatus from "http-status";
 import AppError from "../../errors/AppError";
 import { verifyToken } from "../auth/auth.utils";
 
+// add a booking
 const addABooking = catchAsync(async (req, res) => {
   const result = await BookingServices.addABooking(req.body);
 
@@ -16,8 +17,8 @@ const addABooking = catchAsync(async (req, res) => {
   });
 });
 
+// get all the bookings
 const getAllBookings = catchAsync(async (req, res) => {
-  // Fetch all bookings from service
   const result = await BookingServices.getAllBookings();
 
   if (!result) {
@@ -39,6 +40,11 @@ const getAllBookings = catchAsync(async (req, res) => {
 
 const deleteABooking = catchAsync(async (req, res) => {
   const bookingId = req.params.bookingId;
+
+  if (!bookingId) {
+    throw new AppError(httpStatus.NOT_FOUND, "Invalid Booking Id");
+  }
+
   const result = await BookingServices.deleteABooking(bookingId);
 
   if (!result) {
